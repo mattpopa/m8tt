@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mattplication
+spec:
+  containers:
+    - image: docker.io/manb3ast/mattplication
+      name: mattplication
+      livenessProbe:
+        httpGet:
+          path: /
+          port: 9090
+        initialDelaySeconds: 5
+        timeoutSeconds: 1
+        periodSeconds: 10
+        failureThreshold: 3
+      ports:
+        - containerPort: 9090
+          name: http
+          protocol: TCP
