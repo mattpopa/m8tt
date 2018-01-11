@@ -4,8 +4,8 @@ metadata:
   name: kuard
 spec:
   containers:
-    - image: docker.io/manb3ast/kuard
-      name: kuard
+      cpu: "500m"
+          memory: "128Mi"
       livenessProbe:
         httpGet:
           path: /healthy
