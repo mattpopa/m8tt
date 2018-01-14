@@ -9,22 +9,6 @@ data "terraform_remote_state" "db_out" {
   }
 }
 
-output "m8_vpc_id" {
-  value = "${data.terraform_remote_state.db_out.vpc_id}"
-}
-
-output "m8_subnets" {
-  value = ["${data.terraform_remote_state.db_out.node_subnet_ids}"]
-}
-
-output "m8_sgs" {
-  value = ["${data.terraform_remote_state.db_out.node_security_group_ids}"]
-}
-
-output "m8_name" {
-  value = "${data.terraform_remote_state.db_out.cluster_name}"
-}
-
 output "db_address" {
   value = "${aws_db_instance.sonarqube_db.address}"
 }
@@ -33,18 +17,16 @@ output "db_port" {
   value = "${aws_db_instance.sonarqube_db.port}"
 }
 
-resource "aws_db_subnet_group" "db_subnet" {
-  name        = "${terraform.workspace}-k8-cluster-dbgroup"
-  subnet_ids  =  ["${data.terraform_remote_state.db_out.node_security_group_ids}"]
-  description = "DB Subnet Group for ${terraform.workspace}-k8-cluster"
-
+resource "aws_db_subnet_group" "sonar_db_subnet" {
+  name        = "sonar-k8"
+  subnet_ids  = [ "${data.terraform_remote_state.db_out.node_subnet_ids}" ]
   tags {
-    Name = "${terraform.workspace}-k8-cluster-dbgroup"
+    Name = "sonar-k8-dbgroup"
   }
 }
 
 resource "aws_db_instance" "sonarqube_db" {
-  engine                 = "postgress"
+  engine                 = "postgres"
   engine_version         = "9.5.2"
   allocated_storage      = "${var.volume_size}"
   instance_class         = "${var.instance_class}"
@@ -52,12 +34,16 @@ resource "aws_db_instance" "sonarqube_db" {
   storage_encrypted      = "true"
   multi_az               = "false"
   name                   = "SonarqubeDB"
-  db_subnet_group_name   = "${terraform.workspace}-k8-cluster-dbgroup"
-  vpc_security_group_ids = ["${data.terraform_remote_state.db_out.node_security_group_ids}", "${aws_security_group.sonarqube_db.id}"]
+  db_subnet_group_name   = "sonar-k8"
+  vpc_security_group_ids = ["${aws_security_group.sonarqube_db.id}", "${data.terraform_remote_state.db_out.node_security_group_ids}"]
   username               = "${var.dbs_user}"
   password               = "${var.dbs_pass}"
   skip_final_snapshot    = "true"
-  depends_on             = ["aws_vpc.m8tt-ddigital-org"]   
+  lifecycle {
+    ignore_changes = ["password", "storage_encrypted"]
+    prevent_destroy = false
+  }
+  depends_on = ["aws_db_subnet_group.sonar_db_subnet"]
 }
 
 resource "aws_security_group" "sonarqube_db" {
