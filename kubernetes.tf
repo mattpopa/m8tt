@@ -183,7 +183,7 @@ resource "aws_key_pair" "kubernetes-m8tt-ddigital-org-c0fbf5acaa94b91ecc24bb8f02
 resource "aws_launch_configuration" "master-eu-central-1a-masters-m8tt-ddigital-org" {
   name_prefix                 = "master-eu-central-1a.masters.m8tt.ddigital.org-"
   image_id                    = "ami-1929a676"
-  instance_type               = "t2.micro"
+  instance_type               = "m3.medium"
   key_name                    = "${aws_key_pair.kubernetes-m8tt-ddigital-org-c0fbf5acaa94b91ecc24bb8f0223c44a.id}"
   iam_instance_profile        = "${aws_iam_instance_profile.masters-m8tt-ddigital-org.id}"
   security_groups             = ["${aws_security_group.masters-m8tt-ddigital-org.id}"]
@@ -209,7 +209,7 @@ resource "aws_launch_configuration" "master-eu-central-1a-masters-m8tt-ddigital-
 resource "aws_launch_configuration" "nodes-m8tt-ddigital-org" {
   name_prefix                 = "nodes.m8tt.ddigital.org-"
   image_id                    = "ami-1929a676"
-  instance_type               = "t2.micro"
+  instance_type               = "t2.medium"
   key_name                    = "${aws_key_pair.kubernetes-m8tt-ddigital-org-c0fbf5acaa94b91ecc24bb8f0223c44a.id}"
   iam_instance_profile        = "${aws_iam_instance_profile.nodes-m8tt-ddigital-org.id}"
   security_groups             = ["${aws_security_group.nodes-m8tt-ddigital-org.id}"]
