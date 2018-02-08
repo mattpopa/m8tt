@@ -7,3 +7,6 @@
 .terraform/
 
 .helmignore
+
+data/
+kubernetes.tf

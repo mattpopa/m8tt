@@ -6,13 +6,13 @@ spec:
   containers:
     - image: docker.io/manb3ast/mattplication
       name: mattplication
-      resources:
-        requests:
-          cpu: "500m"
-          memory: "128Mi"
-        limits:
-          cpu: "1000m"
-          memory: "256Mi"
+#      resources:
+#        requests:
+#          cpu: "500m"
+#          memory: "128Mi"
+#        limits:
+#          cpu: "1000m"
+#          memory: "256Mi"
       livenessProbe:
         httpGet:
           path: /

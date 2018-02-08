@@ -142,7 +142,7 @@
         "route53:GetHostedZone"
       ],
       "Resource": [
-        "arn:aws:route53:::hostedzone/Z1QKN3QUNQFAR"
+        "arn:aws:route53:::hostedzone/Z1216Z9K7OEI7A"
       ]
     },
     {

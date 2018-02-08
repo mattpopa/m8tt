@@ -182,7 +182,7 @@ resource "aws_key_pair" "kubernetes-m8tt-ddigital-org-c0fbf5acaa94b91ecc24bb8f02
 
 resource "aws_launch_configuration" "master-eu-central-1a-masters-m8tt-ddigital-org" {
   name_prefix                 = "master-eu-central-1a.masters.m8tt.ddigital.org-"
-  image_id                    = "ami-1929a676"
+  image_id                    = "ami-aae67ac5"
   instance_type               = "t2.micro"
   key_name                    = "${aws_key_pair.kubernetes-m8tt-ddigital-org-c0fbf5acaa94b91ecc24bb8f0223c44a.id}"
   iam_instance_profile        = "${aws_iam_instance_profile.masters-m8tt-ddigital-org.id}"
@@ -208,7 +208,7 @@ resource "aws_launch_configuration" "master-eu-central-1a-masters-m8tt-ddigital-
 
 resource "aws_launch_configuration" "nodes-m8tt-ddigital-org" {
   name_prefix                 = "nodes.m8tt.ddigital.org-"
-  image_id                    = "ami-1929a676"
+  image_id                    = "ami-aae67ac5"
   instance_type               = "t2.micro"
   key_name                    = "${aws_key_pair.kubernetes-m8tt-ddigital-org-c0fbf5acaa94b91ecc24bb8f0223c44a.id}"
   iam_instance_profile        = "${aws_iam_instance_profile.nodes-m8tt-ddigital-org.id}"
@@ -462,6 +462,3 @@ resource "aws_vpc_dhcp_options_association" "m8tt-ddigital-org" {
   dhcp_options_id = "${aws_vpc_dhcp_options.m8tt-ddigital-org.id}"
 }
 
-terraform = {
-  required_version = ">= 0.9.3"
-}
