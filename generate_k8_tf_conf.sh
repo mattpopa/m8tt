@@ -13,12 +13,8 @@ kops create cluster \
     --zones eu-central-1a,eu-central-1b \
     --admin-access 78.96.101.50/32,109.166.194.99/32
 
-echo -e "install the dashboard:\n\nkubectl create -f https://raw.githubusercontent.com/kubernetes/kops/master/addons/kubernetes-dashboard/v1.7.1.yaml"
+echo -e "install the dashboard:\n\n kubectl create -f https://raw.githubusercontent.com/kubernetes/kops/master/addons/kubernetes-dashboard/v1.8.1.yaml"
 
-#The dashboard project provides a nice administrative UI:
-#
-#Install using:
-#
 #kubectl create -f https://raw.githubusercontent.com/kubernetes/kops/master/addons/kubernetes-dashboard/v1.7.1.yaml
 #
 #And then navigate to https://api.<clustername>/ui
