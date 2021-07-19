@@ -11,3 +11,6 @@
 
 data/
 kubernetes.tf
+.vagrant
+.idea
+.idea/*

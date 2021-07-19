@@ -1,0 +1,12 @@
+- name: Add custom CA
+  copy:
+    src: ~/customCA
+    dest: /usr/local/share/ca-certificates/custom-ca.crt
+
+- name: Set CApath
+  copy:
+    src: ~/customCA
+    dest: /usr/lib/ssl/cert.pem
+
+- name: Update CAs
+  shell: update-ca-certificates

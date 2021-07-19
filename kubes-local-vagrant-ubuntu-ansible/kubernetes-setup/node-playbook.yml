@@ -1,0 +1,20 @@
+---
+- hosts: all
+  become: true
+  tasks:
+## Optional, if using a self signed CA import it here
+#    - name: Include custom CA
+#      import_tasks: ./kubernetes-setup/custom-ca.yml
+
+    - name: Install docker, k8s and dependencies
+      import_tasks: ./kubernetes-setup/common-setup.yml
+
+    - name: Copy the join command to server location
+      copy: src=join-command dest=/tmp/join-command.sh mode=0777
+
+    - name: Join the node to cluster
+      command: sh /tmp/join-command.sh
+
+  handlers:
+    - name: docker status
+      service: name=docker state=started
