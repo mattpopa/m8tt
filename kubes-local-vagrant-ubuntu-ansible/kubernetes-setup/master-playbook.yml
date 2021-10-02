@@ -7,7 +7,7 @@
 #      import_tasks: ./kubernetes-setup/custom-ca.yml
 
     - name: Install docker, k8s and dependencies
-      import_tasks: ./kubernetes-setup/common-setup.yml
+      import_tasks: common-setup.yml
 
     - name: Initialize the Kubernetes cluster using kubeadm
       command: kubeadm init --apiserver-advertise-address="192.168.50.10" --apiserver-cert-extra-sans="192.168.50.10"  --node-name k8s-master --pod-network-cidr=192.168.0.0/16

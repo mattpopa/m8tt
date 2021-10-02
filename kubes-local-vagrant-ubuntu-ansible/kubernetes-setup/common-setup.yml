@@ -1,4 +1,4 @@
-- name: Install packages that allow apt to be used over HTTPS
+- name: Install packages that allow apt to be used over HTTPS and basic tools
   apt:
     name: "{{ packages }}"
     state: present
@@ -8,6 +8,7 @@
       - apt-transport-https
       - ca-certificates
       - curl
+      - vim
       - gnupg
       - gnupg-agent
       - software-properties-common
@@ -71,9 +72,9 @@
     update_cache: yes
   vars:
     packages:
-      - kubelet
-      - kubeadm
-      - kubectl
+      - kubelet=1.21.4-00
+      - kubeadm=1.21.4-00
+      - kubectl=1.21.4-00
 
 - name: Configure node ip
   lineinfile:

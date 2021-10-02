@@ -7,7 +7,7 @@
 #      import_tasks: ./kubernetes-setup/custom-ca.yml
 
     - name: Install docker, k8s and dependencies
-      import_tasks: ./kubernetes-setup/common-setup.yml
+      import_tasks: common-setup.yml
 
     - name: Copy the join command to server location
       copy: src=join-command dest=/tmp/join-command.sh mode=0777
